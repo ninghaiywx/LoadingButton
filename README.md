@@ -1,9 +1,11 @@
 # LoadingButton
+### 效果图
+![](loadbutton.gif)  
 
-Gradle引入
+### Gradle引入
 <pre>compile 'me.ywx.LoadingButton:viewlibrary:1.0.3'</pre>
 
-Xml引入
+### Xml引入
 ```xml
 <com.example.ywx.viewlibrary.LoadingButton
         android:id="@+id/loadButton"
@@ -17,7 +19,7 @@ Xml引入
 ```
 
 
-基本使用
+### 基本使用
 ```java
 public class MainActivity extends AppCompatActivity {
     private LoadingButton loadingButton;
