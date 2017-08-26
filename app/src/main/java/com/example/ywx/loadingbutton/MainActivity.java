@@ -16,7 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         button=(Button)findViewById(R.id.button);
         loadingButton=(LoadingButton)findViewById(R.id.loadButton);
+        loadingButton.setOnButtonClickListener(new LoadingButton.OnButtonClickListener() {
+            @Override
+            public void onButtonClick() {
 
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

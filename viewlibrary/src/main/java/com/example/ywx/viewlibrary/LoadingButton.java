@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,6 +20,8 @@ import android.view.View;
  */
 
 public class LoadingButton extends View implements View.OnClickListener{
+    //字体颜色
+    private String textColor=null;
     //按钮颜色
     private String buttonColor=null;
     //加载条颜色
@@ -44,21 +45,23 @@ public class LoadingButton extends View implements View.OnClickListener{
     private float length,value;
     //是否收缩
     private boolean isFold=false;
+    private OnButtonClickListener onButtonClickListener;
     public LoadingButton(Context context) {
         this(context,null);
     }
 
-    public LoadingButton(Context context, @Nullable AttributeSet attrs) {
+    public LoadingButton(Context context,  AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public LoadingButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LoadingButton(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray ta=context.obtainStyledAttributes(attrs,R.styleable.LoadingButton);
         buttonColor=ta.getString(R.styleable.LoadingButton_button_background);
         loadColor=ta.getString(R.styleable.LoadingButton_load_color);
         text=ta.getString(R.styleable.LoadingButton_text);
         textSize=ta.getDimension(R.styleable.LoadingButton_textSize,45);
+        textColor=ta.getString(R.styleable.LoadingButton_textColor);
         ta.recycle();
         init(context,attrs,defStyleAttr);
         setOnClickListener(this);
@@ -81,7 +84,11 @@ public class LoadingButton extends View implements View.OnClickListener{
         textPaint.setAntiAlias(true);
         textPaint.setStyle(Paint.Style.STROKE);
         textPaint.setTextSize(textSize);
-        textPaint.setColor(Color.BLACK);
+        if(textColor!=null) {
+            textPaint.setColor(Color.parseColor(textColor));
+        }else {
+            textPaint.setColor(Color.BLACK);
+        }
 
         mPaint=new Paint();
         mPaint.setAntiAlias(true);
@@ -230,24 +237,27 @@ public class LoadingButton extends View implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        setClickable(false);
-        setEnabled(false);
-        if (!isFold) {
-            isFold=true;
-            valueAnimator = ValueAnimator.ofInt(mHeight / 2, mWidth / 2).setDuration(800);
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    currentLeft = (int) valueAnimator.getAnimatedValue();
-                    currentRight = mWidth - currentLeft;
-                    invalidate();
-                    if(currentLeft==mWidth/2){
-                        setClickable(true);
-                        setEnabled(true);
+        if(onButtonClickListener!=null) {
+            setClickable(false);
+            setEnabled(false);
+            if (!isFold) {
+                isFold = true;
+                valueAnimator = ValueAnimator.ofInt(mHeight / 2, mWidth / 2).setDuration(800);
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        currentLeft = (int) valueAnimator.getAnimatedValue();
+                        currentRight = mWidth - currentLeft;
+                        invalidate();
+                        if (currentLeft == mWidth / 2) {
+                            setClickable(true);
+                            setEnabled(true);
+                            onButtonClickListener.onButtonClick();
+                        }
                     }
-                }
-            });
-            valueAnimator.start();
+                });
+                valueAnimator.start();
+            }
         }
     }
 
@@ -293,5 +303,13 @@ public class LoadingButton extends View implements View.OnClickListener{
         this.textSize = textSize;
         textPaint.setTextSize(textSize);
         invalidate();
+    }
+
+    public void setOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
+        this.onButtonClickListener = onButtonClickListener;
+    }
+
+    public interface OnButtonClickListener{
+        void onButtonClick();
     }
 }

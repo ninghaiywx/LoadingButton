@@ -5,5 +5,6 @@
         <attr name="load_color" format="string"/>
         <attr name="text" format="string"/>
         <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="string"/>
     </declare-styleable>
 </resources>

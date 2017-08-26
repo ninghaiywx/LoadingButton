@@ -10,6 +10,9 @@
     <com.example.ywx.viewlibrary.LoadingButton
         android:id="@+id/loadButton"
         app:button_background="#FFF000"
+        app:textSize="20sp"
+        app:load_color="#000000"
+        app:textColor="#FFFFFF"
         app:text="点击加载"
         android:layout_margin="50dp"
         android:layout_width="wrap_content"

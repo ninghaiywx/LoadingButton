@@ -31,17 +31,16 @@ dependencies {
 }
 
 //项目主页
-def siteUrl = 'https://github.com/backkomyoung/CircleView'
+def siteUrl = 'https://github.com/ninghaiywx/LoadingButton'
 //项目的git地址
-def gitUrl = 'https://github.com/backkomyoung/CircleView.git'
+def gitUrl = 'https://github.com/ninghaiywx/LoadingButton.git'
 //发布到JCenter上的项目名字
 def libName = "LoadingButton"
 
 //发布到组织名称名字，必须填写
-group = "me.songning.CircleView"
+group = "me.ywx.LoadingButton"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.0"
-//上面配置后上传至JCenter后的编译路径是这样的： compile 'me.songning.CircleView:library:1.0.0'
+version = "1.0.3"
 
 //生成源文件
 task sourcesJar(type: Jar) {
@@ -81,7 +80,7 @@ install {
             project {
                 packaging 'aar'
                 //项目描述，随意填
-                name 'A colorful circle view with text.'
+                name 'a loadingbutton.'
                 url siteUrl
                 licenses {
                     license {
@@ -93,9 +92,8 @@ install {
                 developers {
                     developer {
                         //开发者的个人信息
-                        id 'backkomyoung'
-                        name 'SongNing'
-                        email 'backkomyoung@gmail.com'
+                        name 'YueWeixiang'
+                        email 'ninghaiywx1997@gmail.com'
                     }
                 }
                 scm {
@@ -118,11 +116,11 @@ bintray {
     configurations = ['archives']
     pkg {
         //这里的repo值必须要和你创建Maven仓库的时候的名字一样
-        repo = "maven"
+        repo = "ywxlibrary"
         //发布到JCenter上的项目名字
         name = libName
         //项目描述
-        desc = 'A colorful circle view with text.'
+        desc = 'A LoadingButton'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
