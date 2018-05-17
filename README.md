@@ -3,7 +3,7 @@
 ![](loadbutton.gif)  
 
 ### Gradle引入
-<pre>implement 'me.ywx.LoadingButton:viewlibrary:1.0.3'</pre>
+<pre>implementation 'me.ywx.LoadingButton:viewlibrary:1.0.3'</pre>
 
 ### Xml引入
 ```xml
